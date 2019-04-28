@@ -4,18 +4,28 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Draw</title>
+        <link rel="stylesheet" type="text/css" href="style.css">
         <script src="main.js"></script>
     </head>
     <body>
-            <div>
-                <label for="width">Width:</label>
-                <input type="text" id="width" name="canvas_width">
+        <div class="grid-container">
+            <div class="gui">
+                <div>
+                    <label for="width">Width:</label>
+                    <input type="text" id="width" name="canvas_width" value="800">
+                </div>
+                <div>
+                    <label for="height">Height:</label>
+                    <input type="text" id="height" name="canvas_height" value="600">
+                </div>
+                <button id="clear">New Drawing</button>
+                <div id="colors"></div>
             </div>
-            <div>
-                <label for="height">Height:</label>
-                <input type="text" id="height" name="canvas_height">
+
+            <div class="canvas">
+                <canvas style="border: 1px solid black" id="canvas"></canvas>
             </div>
-            <button id="clear">Submit</button>
-        <canvas style="border: 1px solid black" id="canvas"></canvas>
+        </div>
+
     </body>
 </html>

@@ -1,4 +1,13 @@
 var c, ctx, down, lastMousePos, mousePos;
+var colorCanvas;
+var colors = [
+    'black',
+    'red',
+    'blue',
+    'green',
+    'purple',
+    'orange'
+];
 
 // Gui elements
 gui = {}
@@ -6,6 +15,11 @@ gui = {}
 window.onload = function() {
     c = document.getElementById('canvas');
     ctx = c.getContext('2d');
+
+    colorCanvas = document.createElement('canvas'); 
+    colorCanvas.width = 40;
+    colorCanvas.height = 400;
+    document.getElementById('colors').appendChild(colorCanvas);
 
     gui = {
         width: document.getElementById('width'),
@@ -19,9 +33,9 @@ window.onload = function() {
     ctx.strokeStyle = 'black';
     ctx.lineWidth = 2;
 
-    document.addEventListener('mousedown', function(e) {
-        down = true;
-    });
+    drawColors();
+
+    document.addEventListener('mousedown', handleMouseDown);
 
     document.addEventListener('mouseup', function(e) {
         down = false;
@@ -30,10 +44,7 @@ window.onload = function() {
     document.addEventListener('mousemove', function(e) {
         var rect = c.getBoundingClientRect();
         lastMousePos = mousePos;
-        mousePos = {
-            x: e.clientX - rect.left,
-            y: e.clientY - rect.top
-        };
+        mousePos = getMousePos(e, c);
         if (down) {
             draw();
         }
@@ -45,8 +56,43 @@ window.onload = function() {
 
 }
 
+function handleMouseDown(e) {
+    down = true;
+
+    var mousePos = getMousePos(e, colorCanvas);
+    if (isBounded(mousePos, colorCanvas)) {
+        i = Math.floor(mousePos.y / colorCanvas.height * colors.length);
+        ctx.strokeStyle = colors[i];
+    }
+}
+
+function getMousePos(e, canvas) {
+    var rect = canvas.getBoundingClientRect();
+    return {
+        x: e.clientX - rect.left,
+        y: e.clientY - rect.top
+    };
+}
+
+function isBounded(pos, canvas) {
+    return (pos.x >= 0 && pos.x <= canvas.width
+        && pos.y >= 0 && pos.y <= canvas.height);
+}
+
+function drawColors() {
+    var colorCtx = colorCanvas.getContext('2d');
+    colorCtx.fillStyle = 'gray';
+    colorCtx.fillRect(0, 0, colorCanvas.width, colorCanvas.height);
+
+    var blockHeight = colorCanvas.height / colors.length;
+    for (var i = 0; i < colors.length; i++) {
+        colorCtx.fillStyle = colors[i];
+        colorCtx.fillRect(0, blockHeight * i, colorCanvas.width, blockHeight * (i + 1));
+    }
+
+}
+
 function clear() {
-    console.log("hi");
     c.width = gui.width.value;
     c.height = gui.height.value;
     ctx.fillStyle = 'white';
@@ -54,6 +100,7 @@ function clear() {
 }
 
 function draw() {
+    ctx.beginPath();
     ctx.moveTo(lastMousePos.x, lastMousePos.y);
     ctx.lineTo(mousePos.x, mousePos.y);
     ctx.stroke();
