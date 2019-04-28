@@ -1,7 +1,9 @@
 var c, ctx, down, lastMousePos, mousePos;
 var colorCanvas;
+var brushSize;
 var colors = [
     'black',
+    'white',
     'red',
     'blue',
     'green',
@@ -19,6 +21,7 @@ window.onload = function() {
     colorCanvas = document.createElement('canvas'); 
     colorCanvas.width = 40;
     colorCanvas.height = 400;
+    colorCanvas.style = 'border: 1px solid black';
     document.getElementById('colors').appendChild(colorCanvas);
 
     gui = {
@@ -32,6 +35,15 @@ window.onload = function() {
     clear();
     ctx.strokeStyle = 'black';
     ctx.lineWidth = 2;
+    ctx.lineCap = 'round';
+
+    document.getElementById('brushsize_decrease').addEventListener('click', function(e) {
+        document.getElementById('brushsize').value = parseInt(document.getElementById('brushsize').value) - 1;
+    });
+
+    document.getElementById('brushsize_increase').addEventListener('click', function(e) {
+        document.getElementById('brushsize').value = parseInt(document.getElementById('brushsize').value) + 1;
+    });
 
     drawColors();
 
@@ -58,6 +70,9 @@ window.onload = function() {
 
 function handleMouseDown(e) {
     down = true;
+
+    brushSize = document.getElementById('brushsize').value;
+    ctx.lineWidth = brushSize;
 
     var mousePos = getMousePos(e, colorCanvas);
     if (isBounded(mousePos, colorCanvas)) {
