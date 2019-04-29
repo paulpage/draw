@@ -1,6 +1,6 @@
 .grid-container {
     display: grid;
-    grid-template-columns: 30% 70%;
+    grid-template-columns: 400px auto;
 }
 
 .gui {
@@ -11,7 +11,7 @@
         "height_label height_text height_text height_text"
         ". new_button new_button new_button"
         "size_label size_button1 size_text size_button2"
-        "colors colors colors colors";
+        ". . colors colors";
 }
 
 #width_label {
@@ -52,6 +52,7 @@
 
 #colors {
     grid-area: colors;
+    text-align: right;
 }
 
 .viewport {
