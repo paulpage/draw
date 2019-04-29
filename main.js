@@ -78,6 +78,7 @@ function handleMouseDown(e) {
     if (isBounded(mousePos, colorCanvas)) {
         i = Math.floor(mousePos.y / colorCanvas.height * colors.length);
         ctx.strokeStyle = colors[i];
+        ctx.beginPath();
     }
 }
 
@@ -116,7 +117,7 @@ function clear() {
 }
 
 function draw() {
-    ctx.beginPath();
+    // ctx.beginPath();
     ctx.moveTo(lastMousePos.x, lastMousePos.y);
     ctx.lineTo(mousePos.x, mousePos.y);
     ctx.stroke();
