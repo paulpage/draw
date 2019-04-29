@@ -10,30 +10,18 @@
     <body>
         <div class="grid-container">
             <div class="gui">
-
-                <div>
-                    <label for="width">Width:</label>
-                    <input type="text" id="width" name="canvas_width" value="800">
-                </div>
-
-                <div>
-                    <label for="height">Height:</label>
-                    <input type="text" id="height" name="canvas_height" value="600">
-                </div>
-
-                <div>
-                    <label for="brush_size">Brush Size:</label>
-                    <button id="brushsize_decrease">-</button>
-                    <input type="text" id="brushsize" name="brush_size" value="2"></input>
-                    <button id="brushsize_increase">+</button>
-                </div>
+                <label id="width_label" for="width">Width:</label>
+                <input type="text" id="width" name="canvas_width" autocomplete="off" value="800">
+                <label id="height_label" for="height">Height:</label>
+                <input type="text" id="height" name="canvas_height" autocomplete="off" value="600">
+                <label id="size_label" for="brush_size">Brush Size:</label>
                 <button id="clear">New Drawing</button>
-                <div id="colors"></div>
+                <button id="brushsize_decrease">-</button>
+                <input id="brushsize" type="text" name="brush_size" value="2"></input>
+                <button id="brushsize_increase">+</button>
+                <div id="colors" class="col-1" id="colors"></div>
             </div>
-
-            <div class="canvas">
-                <canvas style="border: 1px solid black" id="canvas"></canvas>
-            </div>
+            <canvas class="viewport" style="border: 1px solid black" id="canvas"></canvas>
         </div>
 
     </body>

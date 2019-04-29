@@ -111,6 +111,7 @@ function clear() {
     c.width = gui.width.value;
     c.height = gui.height.value;
     ctx.fillStyle = 'white';
+    ctx.lineCap = 'round';
     ctx.fillRect(0, 0, c.width, c.height);
 }
 
