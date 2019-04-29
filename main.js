@@ -39,10 +39,12 @@ window.onload = function() {
 
     document.getElementById('brushsize_decrease').addEventListener('click', function(e) {
         document.getElementById('brushsize').value = parseInt(document.getElementById('brushsize').value) - 1;
+        ctx.startPath();
     });
 
     document.getElementById('brushsize_increase').addEventListener('click', function(e) {
         document.getElementById('brushsize').value = parseInt(document.getElementById('brushsize').value) + 1;
+        ctx.startPath();
     });
 
     drawColors();
@@ -73,6 +75,7 @@ function handleMouseDown(e) {
 
     brushSize = document.getElementById('brushsize').value;
     ctx.lineWidth = brushSize;
+    ctx.startPath();
 
     var mousePos = getMousePos(e, colorCanvas);
     if (isBounded(mousePos, colorCanvas)) {
